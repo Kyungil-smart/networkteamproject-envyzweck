@@ -100,3 +100,7 @@ InitTestScene*.unity*
 
 # Ignore imported assets
 Assets/Imports/**
+Marble Game/Assets/YughuesFreeMetalMaterials/**
+Marble Game/Assets/Monster_Ghosts_FREE/**
+Marble Game/Assets/Dice_6/**
+Marble Game/Assets/YughuesFreeMetalMaterials.meta
