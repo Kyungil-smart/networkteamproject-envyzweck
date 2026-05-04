@@ -4956,7 +4956,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5625027836864794587}
   - component: {fileID: 14646988534680278}
-  - component: {fileID: 726609253991273866}
   m_Layer: 0
   m_Name: DicePanel
   m_TagString: Untagged
@@ -4997,36 +4996,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6382038820053911643}
   m_CullTransparentMesh: 1
---- !u!114 &726609253991273866
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6382038820053911643}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.1, g: 0.1, b: 0.1, a: 0.85}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &6533128435880461824
 GameObject:
   m_ObjectHideFlags: 0
@@ -6820,9 +6789,8 @@ GameObject:
   - component: {fileID: 3724380547548844397}
   - component: {fileID: 8946107749335019622}
   - component: {fileID: 4024524274013112686}
-  - component: {fileID: 6178020622076006228}
-  - component: {fileID: 656724117581293870}
-  - component: {fileID: 5708795512741972889}
+  - component: {fileID: 3134192901353466602}
+  - component: {fileID: 4684115188859969709}
   m_Layer: 0
   m_Name: GameCanvas
   m_TagString: Untagged
@@ -6922,7 +6890,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &6178020622076006228
+--- !u!114 &3134192901353466602
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6934,16 +6902,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2728ece828bff8408716dec4a4794c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DiceUI
-  dice1Text: {fileID: 8706783626425832690}
-  dice2Text: {fileID: 359194172117578669}
   totalText: {fileID: 3233125046771364490}
   turnText: {fileID: 1622974985685769081}
   resultText: {fileID: 3492765920657499897}
   rollButton: {fileID: 1512319191962359266}
-  dicePanel: {fileID: 6382038820053911643}
-  rollDuration: 0.8
-  rollInterval: 0.05
---- !u!114 &656724117581293870
+  diceRoller: {fileID: 0}
+--- !u!114 &4684115188859969709
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6976,42 +6940,6 @@ MonoBehaviour:
     moneyText: {fileID: 5838666410381619748}
     ownText: {fileID: 6616142563603525087}
     colorBar: {fileID: 7746728653255220876}
---- !u!114 &5708795512741972889
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8899949906142239812}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87867427d9452284c800907c6c010f69, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TileLandingUI
-  buyPanel: {fileID: 8548533803710325070}
-  rentPanel: {fileID: 7224604037154522174}
-  buildPanel: {fileID: 9177169617420410611}
-  eventPanel: {fileID: 697803862605986543}
-  buyTileName: {fileID: 3196554640609467011}
-  buyPrice: {fileID: 6858798570094752663}
-  buyBaseRent: {fileID: 3793207309433939017}
-  buyOwnerInfo: {fileID: 0}
-  buyConfirmBtn: {fileID: 2166197579230631904}
-  buySkipBtn: {fileID: 1106884551351404472}
-  rentTileName: {fileID: 6765604676455954651}
-  rentOwnerName: {fileID: 6121616454034023494}
-  rentAmount: {fileID: 5479633589003808672}
-  rentConfirmBtn: {fileID: 471096831940048168}
-  buildTileName: {fileID: 202738424278660075}
-  buildCurrentBuildings: {fileID: 855856050277000761}
-  buildCost: {fileID: 1995417834748075890}
-  buildNewRent: {fileID: 1573415864258032330}
-  buildConfirmBtn: {fileID: 7531290890910986528}
-  buildSkipBtn: {fileID: 6760300284263778691}
-  eventTitle: {fileID: 226839662391232229}
-  eventDescription: {fileID: 4494032456894286281}
-  eventEffect: {fileID: 6743465638476100885}
-  eventConfirmBtn: {fileID: 74994674478400484}
 --- !u!1 &8978084301813578515
 GameObject:
   m_ObjectHideFlags: 0

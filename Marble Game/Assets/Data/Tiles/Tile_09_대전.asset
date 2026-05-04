@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4d618586e62d5a498755399e116c784, type: 3}
+  m_Name: "Tile_09_\uB300\uC804"
+  m_EditorClassIdentifier: Assembly-CSharp::TileDataSO
+  tileIndex: 9
+  tileName: "\uB300\uC804"
+  type: 1
+  price: 1500000
+  baseRent: 150000
+  buildingRent: e093040020a10700a0bb0d006f991400
+  hotelRent: 1500000
+  buildingCost: 375000
+  tileColor: {r: 0.5, g: 0.7, b: 0.9, a: 1}
+  taxAmount: 0
+  taxRate: 0
