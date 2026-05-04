@@ -21,7 +21,6 @@ public class TileDataSO : ScriptableObject
     [Range(0f, 1f)]
     public float    taxRate;
 
-    // ── 런타임 전용 (에셋 원본 불변, BoardManager에서 복사해 사용) ──
     [System.NonSerialized] public int  ownerIndex    = -1;
     [System.NonSerialized] public int  buildingCount = 0;
     [System.NonSerialized] public bool hasHotel      = false;
@@ -39,7 +38,7 @@ public class TileDataSO : ScriptableObject
     public bool CanBuild() =>
         type == TileType.Property && ownerIndex >= 0 && !hasHotel && buildingCount < 4;
 
-    // 런타임 상태 초기화 (게임 시작 시 호출)
+    // 런타임 상태 초기화
     public void ResetRuntimeState()
     {
         ownerIndex    = -1;

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &7551931606656321142
+--- !u!1 &7143364612216218301
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,49 +8,49 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3015861072272512876}
-  - component: {fileID: 2755878799434585005}
-  - component: {fileID: 5663592779337638184}
-  - component: {fileID: 7261026458575435609}
-  - component: {fileID: 8573607829405702003}
-  - component: {fileID: 2159179027060522554}
+  - component: {fileID: 8762227421883918984}
+  - component: {fileID: 820237780939354545}
+  - component: {fileID: 5253628888718428060}
+  - component: {fileID: 3908137726058619585}
+  - component: {fileID: 3674562610670566621}
+  - component: {fileID: 2048754528588024517}
   m_Layer: 0
-  m_Name: Dice_2
+  m_Name: Dice_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3015861072272512876
+--- !u!4 &8762227421883918984
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7551931606656321142}
+  m_GameObject: {fileID: 7143364612216218301}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.5, y: 0.4, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.5, y: 0.4, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &2755878799434585005
+--- !u!33 &820237780939354545
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7551931606656321142}
+  m_GameObject: {fileID: 7143364612216218301}
   m_Mesh: {fileID: 7193849918037988991, guid: 8d400ad96dc116647b0dfeba5b490335, type: 3}
---- !u!23 &5663592779337638184
+--- !u!23 &5253628888718428060
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7551931606656321142}
+  m_GameObject: {fileID: 7143364612216218301}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -93,14 +93,14 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &7261026458575435609
+--- !u!65 &3908137726058619585
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7551931606656321142}
-  m_Material: {fileID: 0}
+  m_GameObject: {fileID: 7143364612216218301}
+  m_Material: {fileID: 13400000, guid: d5997bec36eeb5d42a2d7dd264a2459e, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -114,17 +114,17 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.4, y: 1.4, z: 1.4}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &8573607829405702003
+--- !u!54 &3674562610670566621
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7551931606656321142}
+  m_GameObject: {fileID: 7143364612216218301}
   serializedVersion: 5
-  m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
+  m_Mass: 3
+  m_LinearDamping: 1.5
+  m_AngularDamping: 1
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -137,28 +137,22 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 0
---- !u!114 &2159179027060522554
+  m_CollisionDetection: 1
+--- !u!114 &2048754528588024517
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7551931606656321142}
+  m_GameObject: {fileID: 7143364612216218301}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3024cfa0518a303498cb884e9d4cf31d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Dice3D
-  dropHeight: 2
-  throwForce: 3
-  torqueAmount: 20
-  settleCheckInterval: 0.5
-  throwOrigin: {fileID: 0}
-  throwOriginOffset: {x: 0, y: 0, z: 0}
-  lateralRandom: 0.5
-  aimTarget: {fileID: 0}
-  aimUp: 0.5
+  throwForce: 1
+  torqueForce: 2.5
+  baseY: 2

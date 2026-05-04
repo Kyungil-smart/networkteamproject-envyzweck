@@ -54,7 +54,7 @@ public class TileLandingUI : MonoBehaviour
         rentPanel.SetActive(false);
         buildPanel.SetActive(false);
         eventPanel.SetActive(false);
-        SetButtonsInteractable(true);
+        SetButtonsInteractable(true); 
     }
 
     private void SetButtonsInteractable(bool state)
@@ -65,17 +65,19 @@ public class TileLandingUI : MonoBehaviour
         eventConfirmBtn.interactable = state;
     }
 
-    // AI 자동 클릭 처리 코루틴
     IEnumerator AIClickRoutine(System.Action action)
     {
-        // AI가 결정할 동안 유저 클릭 방지
         SetButtonsInteractable(false); 
         yield return new WaitForSeconds(aiDelay);
         action.Invoke();
+        // AI 클릭이 끝나면 버튼을 다시 활성화합니다.
+        SetButtonsInteractable(true); 
     }
 
     public void ShowBuyPanel(int playerIndex, TileDataSO tile)
     {
+        // 패널을 띄우기 전 항상 버튼 상태를 초기화합니다.
+        SetButtonsInteractable(true); 
         _pendingPlayerIndex = playerIndex;
         _pendingTile = tile;
         buyTileName.text = tile.tileName;
@@ -85,7 +87,6 @@ public class TileLandingUI : MonoBehaviour
 
         if (GameManager.Instance.Players[playerIndex].isAI)
         {
-            // AI는 돈이 땅값의 1.5배 이상 있을 때만 구매
             StartCoroutine(AIClickRoutine(() => {
                 if (GameManager.Instance.Players[playerIndex].money >= tile.price * 1.2f) OnBuyConfirm();
                 else OnBuySkip();
@@ -95,6 +96,7 @@ public class TileLandingUI : MonoBehaviour
 
     public void ShowRentPanel(int playerIndex, TileDataSO tile)
     {
+        SetButtonsInteractable(true);
         _pendingPlayerIndex = playerIndex;
         _pendingTile = tile;
         var gm = GameManager.Instance;
@@ -109,6 +111,7 @@ public class TileLandingUI : MonoBehaviour
 
     public void ShowBuildPanel(int playerIndex, TileDataSO tile)
     {
+        SetButtonsInteractable(true);
         _pendingPlayerIndex = playerIndex;
         _pendingTile = tile;
         string buildings = tile.hasHotel ? "호텔" : tile.buildingCount + "채";
@@ -123,6 +126,7 @@ public class TileLandingUI : MonoBehaviour
 
     public void ShowEventPanel(int playerIndex, BoardManager.EventCard card)
     {
+        SetButtonsInteractable(true);
         _pendingPlayerIndex = playerIndex;
         _pendingEvent = card;
         eventDescription.text = card.description;

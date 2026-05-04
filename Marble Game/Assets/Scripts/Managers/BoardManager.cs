@@ -16,6 +16,8 @@ public class BoardManager : MonoBehaviour
 
     public TileDataSO[] Tiles { get; private set; }
 
+    private TileDisplay[] tileDisplays;
+
     [System.Serializable]
     public class EventCard
     {
@@ -30,6 +32,8 @@ public class BoardManager : MonoBehaviour
     {
         InitTiles();
         InitDefaultEventCards();
+        // 씬 내의 모든 타일 디스플레이 찾기
+        tileDisplays = Object.FindObjectsByType<TileDisplay>(FindObjectsSortMode.None);
     }
 
     void InitTiles()
@@ -48,8 +52,8 @@ public class BoardManager : MonoBehaviour
     {
         if (eventCards.Count > 0) return;
 
-        eventCards.Add(new EventCard { description = "복권 당첨! +500,000",          moneyDelta = 500000 });
-        eventCards.Add(new EventCard { description = "세금 환급! +200,000",          moneyDelta = 200000 });
+        eventCards.Add(new EventCard { description = "복권 당첨! +500,000",           moneyDelta = 500000 });
+        eventCards.Add(new EventCard { description = "세금 환급! +200,000",           moneyDelta = 200000 });
         eventCards.Add(new EventCard { description = "건물 수리비 발생! -300,000",    moneyDelta = -300000 });
         eventCards.Add(new EventCard { description = "해외 여행 비용 지출! -400,000", moneyDelta = -400000 });
         eventCards.Add(new EventCard { description = "특별 보너스 지급! +1,000,000",  moneyDelta = 1000000 });
@@ -68,12 +72,12 @@ public class BoardManager : MonoBehaviour
 
         switch (tile.type)
         {
-            case TileDataSO.TileType.Start:       OnLandStart(playerIndex);           break;
-            case TileDataSO.TileType.Property:    OnLandProperty(playerIndex, tile); break;
-            case TileDataSO.TileType.Event:       OnLandEvent(playerIndex);           break;
-            case TileDataSO.TileType.Jail:        GameManager.Instance.SendToJail(playerIndex); break;
+            case TileDataSO.TileType.Start: OnLandStart(playerIndex); break;
+            case TileDataSO.TileType.Property: OnLandProperty(playerIndex, tile); break;
+            case TileDataSO.TileType.Event: OnLandEvent(playerIndex); break;
+            case TileDataSO.TileType.Jail: GameManager.Instance.SendToJail(playerIndex); break;
             case TileDataSO.TileType.FreeParking: GameManager.Instance.FinishTurn(); break;
-            case TileDataSO.TileType.Tax:         OnLandTax(playerIndex, tile);      break;
+            case TileDataSO.TileType.Tax: OnLandTax(playerIndex, tile); break;
         }
     }
 
@@ -88,7 +92,6 @@ public class BoardManager : MonoBehaviour
         var gm = GameManager.Instance;
         var player = gm.Players[pIdx];
 
-        // 땅주인 없는 경우
         if (tile.ownerIndex < 0)
         {
             if (player.money >= tile.price)
@@ -98,7 +101,6 @@ public class BoardManager : MonoBehaviour
             }
             else gm.FinishTurn();
         }
-        // 내 땅인 경우
         else if (tile.ownerIndex == pIdx)
         {
             if (tile.CanBuild() && player.money >= tile.buildingCost)
@@ -108,7 +110,6 @@ public class BoardManager : MonoBehaviour
             }
             else gm.FinishTurn();
         }
-        // 남의 땅일 때
         else
         {
             if (TileLandingUI.Instance != null) TileLandingUI.Instance.ShowRentPanel(pIdx, tile);
@@ -155,6 +156,8 @@ public class BoardManager : MonoBehaviour
         GameManager.Instance.PayMoney(pIdx, tile.price);
         tile.ownerIndex = pIdx;
         GameManager.Instance.Players[pIdx].ownedTiles.Add(tile.tileIndex);
+
+        RefreshTileUI(tile.tileIndex);
     }
 
     public bool BuildOnTile(int pIdx, int tileIndex)
@@ -166,6 +169,21 @@ public class BoardManager : MonoBehaviour
         gm.PayMoney(pIdx, tile.buildingCost);
         if (tile.buildingCount >= 4) tile.hasHotel = true;
         else tile.buildingCount++;
+
+        RefreshTileUI(tileIndex);
         return true;
+    }
+
+    // 특정 타일의 UI만 갱신
+    private void RefreshTileUI(int index)
+    {
+        foreach (var disp in tileDisplays)
+        {
+            if (disp.tileIndex == index)
+            {
+                disp.UpdateDisplay();
+                break;
+            }
+        }
     }
 }

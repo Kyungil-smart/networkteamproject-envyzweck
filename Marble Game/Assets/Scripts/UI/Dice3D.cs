@@ -73,10 +73,11 @@ public class Dice3D : MonoBehaviour
         while (isCheckingStop)
         {
             // 속도와 회전이 0에 가까워지면 0으로 간주 _ 계속 모서리로 주사위가 멈춰서 더욱 미세하게 조정함
-            if (rb.linearVelocity.sqrMagnitude < 0.0001f && rb.angularVelocity.sqrMagnitude < 0.0001f)
+            if (rb.linearVelocity.sqrMagnitude < 0.00001f && rb.angularVelocity.sqrMagnitude < 0.00001f)
             {
                 isCheckingStop = false;
-                rb.isKinematic = true; 
+                // 주사위가 모사리로 또 멈춰서 잠시 꺼둠
+                //rb.isKinematic = true;  
                 
                 int result = GetDiceResult();
                 Debug.Log($"[Dice3D] {gameObject.name} 결과: {result}");
