@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using TMPro; 
 
 public class TileLandingUI : MonoBehaviour
 {
@@ -17,19 +18,19 @@ public class TileLandingUI : MonoBehaviour
     public GameObject eventPanel;
 
     [Header("Buy Panel")]
-    public Text buyTileName; public Text buyPrice; public Text buyBaseRent;
+    public TMP_Text buyTileName; public TMP_Text buyPrice; public TMP_Text buyBaseRent; // Text -> TMP_Text
     public Button buyConfirmBtn; public Button buySkipBtn;
 
     [Header("Rent Panel")]
-    public Text rentTileName; public Text rentOwnerName; public Text rentAmount;
+    public TMP_Text rentTileName; public TMP_Text rentOwnerName; public TMP_Text rentAmount; // Text -> TMP_Text
     public Button rentConfirmBtn;
 
     [Header("Build Panel")]
-    public Text buildTileName; public Text buildCurrentBuildings; public Text buildCost; public Text buildNewRent;
+    public TMP_Text buildTileName; public TMP_Text buildCurrentBuildings; public TMP_Text buildCost; public TMP_Text buildNewRent; // Text -> TMP_Text
     public Button buildConfirmBtn; public Button buildSkipBtn;
 
     [Header("Event Panel")]
-    public Text eventTitle; public Text eventDescription; public Text eventEffect;
+    public TMP_Text eventTitle; public TMP_Text eventDescription; public TMP_Text eventEffect; // Text -> TMP_Text
     public Button eventConfirmBtn;
 
     int _pendingPlayerIndex = -1;
@@ -70,13 +71,13 @@ public class TileLandingUI : MonoBehaviour
         SetButtonsInteractable(false); 
         yield return new WaitForSeconds(aiDelay);
         action.Invoke();
-        // AI 클릭이 끝나면 버튼을 다시 활성화합니다.
+        // AI 클릭이 끝나면 버튼 다시 활성
         SetButtonsInteractable(true); 
     }
 
     public void ShowBuyPanel(int playerIndex, TileDataSO tile)
     {
-        // 패널을 띄우기 전 항상 버튼 상태를 초기화합니다.
+        // 패널을 띄우기 전 버튼 초기화
         SetButtonsInteractable(true); 
         _pendingPlayerIndex = playerIndex;
         _pendingTile = tile;

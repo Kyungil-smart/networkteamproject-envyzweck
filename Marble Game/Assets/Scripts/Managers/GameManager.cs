@@ -43,7 +43,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] int salaryOnStart = 200000;
     [SerializeField] int totalTiles = 40;
 
-    // --- 추가: 플레이어 고유 색상 설정 ---
+    // 플레이어 고유 색상 설정
     [SerializeField] private Color[] playerColors = { Color.red, Color.blue, Color.green, Color.yellow };
 
     public GameState CurrentState { get; private set; }
@@ -101,14 +101,14 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // ── 추가: 외부(TileDisplay)에서 플레이어 색상을 가져갈 수 있는 함수 ──
+    // 외부에서 플레이어 색상을 가져가는 함수
     public Color GetPlayerColor(int index)
     {
         if (index < 0 || index >= playerColors.Length) return Color.white;
         return playerColors[index];
     }
 
-    // ── 주사위 및 턴 로직 ──
+    // 주사위 및 턴 로직
 
     public void NotifyDiceStart()
     {

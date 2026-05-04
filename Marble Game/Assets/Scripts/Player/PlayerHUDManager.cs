@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using TMPro; 
 
 public class PlayerHUDManager : MonoBehaviour
 {
@@ -8,9 +9,9 @@ public class PlayerHUDManager : MonoBehaviour
     public class PlayerHUD
     {
         public GameObject root;
-        public Text       nameText;
-        public Text       moneyText;
-        public Text       ownText;
+        public TMP_Text   nameText;  
+        public TMP_Text   moneyText; 
+        public TMP_Text   ownText;   
         public Image      colorBar;
     }
 
@@ -56,8 +57,8 @@ public class PlayerHUDManager : MonoBehaviour
             huds[i].root.SetActive(!p.isBankrupt);
 
             if (huds[i].nameText  != null) huds[i].nameText.text  = p.playerName + (p.isAI ? " (AI)" : "");
-            if (huds[i].moneyText != null) huds[i].moneyText.text = "\u20a9" + p.money.ToString("N0");
-            if (huds[i].ownText   != null) huds[i].ownText.text   = p.ownedTiles.Count + " \uce78";
+            if (huds[i].moneyText != null) huds[i].moneyText.text = "₩ " + p.money.ToString("N0");
+            if (huds[i].ownText   != null) huds[i].ownText.text   = p.ownedTiles.Count + " 개";
 
             bool isCurrent = (GameManager.Instance.CurrentIndex == i);
             var bg = huds[i].root.GetComponent<Image>();

@@ -1,12 +1,13 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using TMPro; 
 
 public class DiceUI : MonoBehaviour
 {
     [Header("UI 참조")]
-    public Text totalText;
-    public Text turnText;
-    public Text resultText;
+    public TMP_Text totalText;  
+    public TMP_Text turnText;  
+    public TMP_Text resultText; 
     public Button rollButton;
 
     [Header("3D 주사위 (자동 탐색)")]
