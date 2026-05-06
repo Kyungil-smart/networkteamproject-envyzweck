@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class PlayerController : MonoBehaviour
 {
-    public int playerIndex = 0;
+    public int playerIndex = 0; 
     public float moveSpeed = 12f;    
     public float hopHeight = 0.6f;    
     public float baseY = 0.4f;
@@ -13,23 +13,25 @@ public class PlayerController : MonoBehaviour
     private Queue<int> _tileIndexQueue = new Queue<int>(); 
     private Transform[] _tileCache;    
 
+    public void Setup(int index)
+    {
+        playerIndex = index;
+    }
+
     void Start()
     {
-        // 게임 시작시 타일들 저장
         CacheTiles(); 
         StartCoroutine(SubscribeWhenReady());
     }
 
-    // 씬에 있는 타일 찾아서 한번만 저장 (성능 최적화)
     void CacheTiles()
     {
-        _tileCache = new Transform[40]; // 전체 타일 수
+        _tileCache = new Transform[40]; 
         for (int i = 0; i < 40; i++)
         {
             string tName = "Tile_" + i.ToString("D2");
             GameObject go = GameObject.Find(tName);
             if (go == null) go = GameObject.Find("Tile_" + i);
-            
             if (go != null) _tileCache[i] = go.transform;
         }
     }
@@ -46,25 +48,18 @@ public class PlayerController : MonoBehaviour
 
         _tileIndexQueue.Enqueue(tileIndex);
 
-        if (!isMoving)
-        {
-            StartCoroutine(ProcessMoveQueue());
-        }
+        if (!isMoving) StartCoroutine(ProcessMoveQueue());
     }
 
     private IEnumerator ProcessMoveQueue()
     {
         isMoving = true;
-
         while (_tileIndexQueue.Count > 0)
         {
             int nextTileIdx = _tileIndexQueue.Dequeue();
             Vector3 targetPos = CalculateTargetPos(nextTileIdx);
-            
-            // 한 칸 이동 완료될 때까지 대기
             yield return StartCoroutine(HopTo(targetPos));
         }
-
         isMoving = false;
     }
 
@@ -72,7 +67,6 @@ public class PlayerController : MonoBehaviour
     {
         Vector3 startPos = transform.position;
         float dist = Vector3.Distance(startPos, destination);
-        
         float duration = Mathf.Clamp(dist / moveSpeed, 0.1f, 0.25f);
         float elapsed = 0f;
 
@@ -80,16 +74,11 @@ public class PlayerController : MonoBehaviour
         {
             elapsed += Time.deltaTime;
             float t = elapsed / duration;
-
-            // 수평 이동
             Vector3 currentPos = Vector3.Lerp(startPos, destination, t);
-            // 수직 점프 (포물선)
             currentPos.y += hopHeight * Mathf.Sin(t * Mathf.PI);
-
             transform.position = currentPos;
             yield return null;
         }
-
         transform.position = destination;
     }
 
@@ -113,5 +102,11 @@ public class PlayerController : MonoBehaviour
             case 3: return new Vector3(0.2f, 0f, 0.2f);
             default: return Vector3.zero;
         }
+    }
+
+    private void OnDestroy()
+    {
+        if (GameManager.Instance != null)
+            GameManager.Instance.OnPlayerMoved -= OnPlayerMoved;
     }
 }

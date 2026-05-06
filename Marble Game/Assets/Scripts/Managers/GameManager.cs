@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement; 
 
 public class GameManager : MonoBehaviour
 {
@@ -20,7 +21,7 @@ public class GameManager : MonoBehaviour
     [System.Serializable]
     public class PlayerData
     {
-        public int playerIndex;
+        public int playerIndex; 
         public string playerName;
         public int money;
         public int currentTileIndex;
@@ -29,6 +30,7 @@ public class GameManager : MonoBehaviour
         public bool isBankrupt;
         public bool isAI;
         public List<int> ownedTiles;
+        public GameObject playerObject; // 생성된 캐릭터 오브젝트 참조
 
         public PlayerData(int idx, string name, int startMoney, bool ai = false)
         {
@@ -42,6 +44,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] int startMoney = 3000000;
     [SerializeField] int salaryOnStart = 200000;
     [SerializeField] int totalTiles = 40;
+
+    [Header("캐릭터 배치 설정")]
+    [SerializeField] private Transform[] startPoints; 
+    [SerializeField] private float playerOffset = 0.4f; // 캐릭터 간격 조절
 
     // 플레이어 고유 색상 설정
     [SerializeField] private Color[] playerColors = { Color.red, Color.blue, Color.green, Color.yellow };
@@ -77,16 +83,67 @@ public class GameManager : MonoBehaviour
     {
         Players = new List<PlayerData>();
         
-        int h = SceneLoader.HumanPlayerCount > 0 ? SceneLoader.HumanPlayerCount : 1;
-        int a = SceneLoader.AIPlayerCount >= 0 ? SceneLoader.AIPlayerCount : 1;
+        int selectedCharIdx = SceneLoader.SelectedCharacterIndex; 
+        int aiCount = SceneLoader.AIPlayerCount >= 0 ? SceneLoader.AIPlayerCount : 1;
 
-        for (int i = 0; i < h; i++)
-            Players.Add(new PlayerData(i, "Player " + (i + 1), startMoney, false));
-        for (int i = 0; i < a; i++)
-            Players.Add(new PlayerData(h + i, "BOT " + (i + 1), startMoney, true));
+        // 플레이어 캐릭터 추가
+        Players.Add(new PlayerData(selectedCharIdx, "Player 1", startMoney, false));
+
+        // AI 캐릭터 추가
+        int aiAssigned = 0;
+        for (int i = 0; i < 4; i++)
+        {
+            if (aiAssigned >= aiCount) break;
+            if (i == selectedCharIdx) continue; 
+
+            Players.Add(new PlayerData(i, "BOT " + (aiAssigned + 1), startMoney, true));
+            aiAssigned++;
+        }
         
+        SpawnCharacters(); 
+
         CurrentIndex = 0;
         ApplyState(GameState.PlayerTurn);
+    }
+
+    // 캐릭터 모델 소환 및 자리 배치
+
+    private void SpawnCharacters()
+    {
+        for (int seatIndex = 0; seatIndex < Players.Count; seatIndex++)
+        {
+            PlayerData p = Players[seatIndex];
+
+            GameObject prefab = Resources.Load<GameObject>($"Characters/Character_{p.playerIndex}");
+            
+            if (prefab != null)
+            {
+                Vector3 spawnPos = (startPoints != null && startPoints.Length > seatIndex) 
+                                   ? startPoints[seatIndex].position : Vector3.zero;
+                
+                Vector3 offset = GetPlayerOffset(seatIndex); 
+                
+                GameObject go = Instantiate(prefab, spawnPos + offset, Quaternion.identity);
+                p.playerObject = go;
+
+                // 캐릭터 컨트롤러에 seatIndex'를 주입
+                var controller = go.GetComponent<PlayerController>(); 
+                if (controller != null) 
+                {
+                    controller.Setup(seatIndex); 
+                }
+
+                OnPlayerMoved?.Invoke(seatIndex, 0);
+            }
+            else Debug.LogWarning($"[GameManager] Characters/Character_{p.playerIndex} 프리팹 누락");
+        }
+    }
+
+    public Vector3 GetPlayerOffset(int index)
+    {
+        float x = (index % 2 == 0) ? -playerOffset : playerOffset;
+        float z = (index < 2) ? playerOffset : -playerOffset;
+        return new Vector3(x, 0, z);
     }
 
     public void ApplyState(GameState s)
@@ -101,7 +158,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // 외부에서 플레이어 색상을 가져가는 함수
     public Color GetPlayerColor(int index)
     {
         if (index < 0 || index >= playerColors.Length) return Color.white;
@@ -141,21 +197,14 @@ public class GameManager : MonoBehaviour
 
         if (_doubleCount >= 3)
         {
-            Debug.Log("<color=red>3회 연속 더블! 무인도행</color>");
             _isDouble = false;
             _doubleCount = 0;
             SendToJail(CurrentIndex);
             yield break;
         }
 
-        if (CurrentPlayer.isInJail)
-        {
-            ProcessJail(d1, d2);
-        }
-        else
-        {
-            yield return StartCoroutine(MoveCoroutine(CurrentIndex, LastDice));
-        }
+        if (CurrentPlayer.isInJail) ProcessJail(d1, d2);
+        else yield return StartCoroutine(MoveCoroutine(CurrentIndex, LastDice));
     }
 
     IEnumerator AITurnRoutine()
@@ -171,7 +220,6 @@ public class GameManager : MonoBehaviour
 
     public void RequestMovePlayer(int pIdx, int steps)
     {
-        // 이벤트 카드 등 외부요청이 있을때 사용
         StartCoroutine(MoveCoroutine(pIdx, steps));
     }
 
@@ -185,13 +233,9 @@ public class GameManager : MonoBehaviour
 
         for (int i = 0; i < absSteps; i++)
         {
-            // 인덱스 순환 계산
             p.currentTileIndex = (p.currentTileIndex + direction + totalTiles) % totalTiles;
-            
-            // 앞으로 이동 시 시작점 통과 체크
             if (direction > 0 && p.currentTileIndex == 0) p.money += salaryOnStart;
 
-            // 시각적 이동 이벤트 발생
             OnPlayerMoved?.Invoke(pIdx, p.currentTileIndex);
             yield return new WaitForSeconds(0.3f); 
         }
@@ -213,7 +257,6 @@ public class GameManager : MonoBehaviour
         {
             p.isInJail = false; p.jailTurns = 0;
             _isDouble = false;
-            Debug.Log($"{p.playerName} 탈출 성공!");
             StartCoroutine(MoveCoroutine(CurrentIndex, d1 + d2));
         }
         else
@@ -262,7 +305,7 @@ public class GameManager : MonoBehaviour
         PlayerData p = Players[pIdx];
         p.isInJail = true; p.jailTurns = 3;
         p.currentTileIndex = 10; 
-        OnPlayerMoved?.Invoke(pIdx, 10); // 즉시 무인도로 이동
+        OnPlayerMoved?.Invoke(pIdx, 10); 
         
         _isDouble = false; _doubleCount = 0;
         FinishTurn();
@@ -273,6 +316,8 @@ public class GameManager : MonoBehaviour
         Players[pIdx].isBankrupt = true;
         Players[pIdx].money = 0;
         OnPlayerBankrupt?.Invoke(pIdx);
+
+        if (Players[pIdx].playerObject != null) Players[pIdx].playerObject.SetActive(false);
 
         int activeCount = 0;
         int winnerIdx = -1;
@@ -285,7 +330,18 @@ public class GameManager : MonoBehaviour
         {
             ApplyState(GameState.GameOver);
             OnGameOver?.Invoke(winnerIdx);
+            StartCoroutine(TransitionToResultScene(winnerIdx));
         }
         else FinishTurn();
+    }
+
+    IEnumerator TransitionToResultScene(int winnerIdx)
+    {
+        yield return new WaitForSeconds(2.5f);
+        PlayerPrefs.SetString("WinnerName", Players[winnerIdx].playerName);
+        PlayerPrefs.SetInt("LastHumanCount", SceneLoader.HumanPlayerCount);
+        PlayerPrefs.SetInt("LastAICount", SceneLoader.AIPlayerCount);
+        PlayerPrefs.SetString("WinnerPrefabName", "Character_" + Players[winnerIdx].playerIndex);
+        SceneManager.LoadScene("ResultScene");
     }
 }

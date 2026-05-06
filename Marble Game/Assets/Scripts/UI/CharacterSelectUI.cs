@@ -38,7 +38,7 @@ public class CharacterSelectUI : MonoBehaviour
 
         aiCountText = FindDeep(transform, "AIValue")?.GetComponent<Text>();
 
-        // AI ▲▼ 버튼
+        // AI 버튼
         var aiUpBtn   = FindDeep(transform, "AIUpBtn")?.GetComponent<Button>();
         var aiDownBtn = FindDeep(transform, "AIDownBtn")?.GetComponent<Button>();
         if (aiUpBtn   != null) aiUpBtn.onClick.AddListener(()   => ChangeAI(1));
@@ -90,7 +90,7 @@ public class CharacterSelectUI : MonoBehaviour
         SceneLoader.SelectedCharacterIndex = selectedIndex;
         SceneLoader.AIPlayerCount = aiCount;
         SceneLoader.HumanPlayerCount = 1;
-        SceneManager.LoadScene(2); // SampleScene
+        SceneManager.LoadScene(2); 
     }
 
     public void OnBack()
