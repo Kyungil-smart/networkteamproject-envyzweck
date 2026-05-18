@@ -1763,6 +1763,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tile_11
       objectReference: {fileID: 0}
+    - target: {fileID: 670308021482168244, guid: 9640d0c760e084d4e9cf47f7cfbdeee5, type: 3}
+      propertyPath: m_TagString
+      value: Floor
+      objectReference: {fileID: 0}
     - target: {fileID: 730219911588343055, guid: 9640d0c760e084d4e9cf47f7cfbdeee5, type: 3}
       propertyPath: m_Name
       value: Tile_31
@@ -2768,6 +2772,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8813783540350907627, guid: 9640d0c760e084d4e9cf47f7cfbdeee5, type: 3}
       insertIndex: -1
       addedObject: {fileID: 200154038}
+    - targetCorrespondingSourceObject: {fileID: 670308021482168244, guid: 9640d0c760e084d4e9cf47f7cfbdeee5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2143694480}
   m_SourcePrefab: {fileID: 100100000, guid: 9640d0c760e084d4e9cf47f7cfbdeee5, type: 3}
 --- !u!1 &330585543
 GameObject:
@@ -5229,7 +5236,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -898}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 310, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &736733843
@@ -8812,18 +8819,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   startMoney: 3000000
-  salaryOnStart: 200000
+  salaryOnStart: 300000
   totalTiles: 40
   startPoints:
   - {fileID: 1548863471}
   - {fileID: 1882399845}
   - {fileID: 1858137364}
   - {fileID: 145629475}
-  playerOffset: 0
+  playerOffset: 0.1
   playerColors:
   - {r: 1, g: 0, b: 0, a: 1}
   - {r: 0, g: 0, b: 1, a: 1}
-  - {r: 0, g: 1, b: 0, a: 1}
+  - {r: 0, g: 0, b: 0, a: 1}
   - {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
 --- !u!1 &1584101494
 GameObject:
@@ -8921,7 +8928,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1578, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 310, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1599727611
@@ -9717,7 +9724,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1578, y: -898}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 310, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1827696673
@@ -12918,7 +12925,95 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BoardManager
   boardConfig: {fileID: 11400000, guid: 8d0108c9b66422748848b15bed91668e, type: 2}
-  eventCards: []
+  eventCards:
+  - eventTitle: "\uBCF4\uB108\uC2A4 \uC6D4\uAE09"
+    description: "\uC131\uC2E4\uD55C \uB2F9\uC2E0, \uD68C\uC0AC\uC5D0\uC11C \uBCF4\uB108\uC2A4\uB97C
+      \uC9C0\uAE09\uD569\uB2C8\uB2E4."
+    moneyDelta: 30000
+    goToJail: 0
+    moveSteps: 0
+  - eventTitle: "\uACFC\uC18D \uBC94\uCE59\uAE08"
+    description: "\uC8FC\uC0AC\uC704\uB97C \uB108\uBB34 \uBE68\uB9AC \uAD74\uB9AC\uC168\uAD70\uC694!
+      \uACFC\uC18D \uB531\uC9C0 \uB2F9\uCCA8."
+    moneyDelta: -10000
+    goToJail: 0
+    moveSteps: 0
+  - eventTitle: "\uB4A4\uB85C \uAC00\uAE30"
+    description: "\uAE38\uC744 \uC798\uBABB \uB4E4\uC5C8\uC2B5\uB2C8\uB2E4. \uB4A4\uB85C
+      \uC138 \uCE78 \uAC00\uC138\uC694."
+    moneyDelta: 0
+    goToJail: 0
+    moveSteps: -3
+  - eventTitle: "\uC74C\uC8FC\uC6B4\uC804 \uC801\uBC1C"
+    description: "\uB300\uB9AC\uC6B4\uC804\uC744 \uBD80\uB974\uC168\uC5B4\uC57C\uC8E0.
+      \uC989\uC2DC \uAC10\uC625\uC73C\uB85C \uAC11\uB2C8\uB2E4."
+    moneyDelta: -100000
+    goToJail: 1
+    moveSteps: 0
+  - eventTitle: "\uBCF5\uAD8C \uB2F9\uCCA8"
+    description: "\uCD95\uD558\uD569\uB2C8\uB2E4! \uC778\uC0DD \uC5ED\uC804\uC758
+      \uAE30\uD68C\uAC00 \uCC3E\uC544\uC654\uC2B5\uB2C8\uB2E4."
+    moneyDelta: 500000
+    goToJail: 0
+    moveSteps: 0
+  - eventTitle: "\uAC74\uAC15\uAC80\uC9C4"
+    description: "\uBAB8\uC774 \uC7AC\uC0B0\uC785\uB2C8\uB2E4. \uC815\uAE30 \uAC80\uC9C4
+      \uBE44\uC6A9\uC744 \uC9C0\uCD9C\uD569\uB2C8\uB2E4."
+    moneyDelta: -15000
+    goToJail: 0
+    moveSteps: 0
+  - eventTitle: "\uC0DD\uC77C \uCD95\uD558"
+    description: "\uC9C0\uC778\uB4E4\uC5D0\uAC8C \uCD95\uD558\uAE08\uC744 \uBC1B\uC558\uC2B5\uB2C8\uB2E4."
+    moneyDelta: 30000
+    goToJail: 0
+    moveSteps: 0
+  - eventTitle: "\uBD80\uB3D9\uC0B0 \uD22C\uAE30"
+    description: "\uC138\uBB34\uC870\uC0AC\uAC00 \uB098\uC654\uC2B5\uB2C8\uB2E4.
+      \uC138\uAE08\uC744 \uCD94\uAC00 \uB0A9\uBD80\uD558\uC138\uC694."
+    moneyDelta: -50000
+    goToJail: 0
+    moveSteps: 0
+  - eventTitle: "\uC804\uB825 \uC9C8\uC8FC"
+    description: "\uAE30\uBD84\uC774 \uC0C1\uCF8C\uD569\uB2C8\uB2E4. \uC55E\uC73C\uB85C
+      5\uCE78 \uC804\uC9C4!"
+    moneyDelta: 0
+    goToJail: 0
+    moveSteps: 5
+  - eventTitle: "\uBB34\uC804 \uCDE8\uC2DD"
+    description: "\uC2DD\uB2F9\uC5D0\uC11C \uB3C4\uB9DD\uCE58\uB2E4 \uC7A1\uD614\uC2B5\uB2C8\uB2E4.
+      \uACBD\uCC30\uC11C\uD589!"
+    moneyDelta: -20000
+    goToJail: 1
+    moveSteps: 0
+  - eventTitle: "\uC7A5\uD559\uAE08 \uC218\uD61C"
+    description: "\uC6B0\uC218\uD55C \uC131\uC801\uC73C\uB85C \uC7A5\uD559\uAE08\uC744
+      \uBC1B\uAC8C \uB418\uC5C8\uC2B5\uB2C8\uB2E4."
+    moneyDelta: 10000
+    goToJail: 0
+    moveSteps: 0
+  - eventTitle: "\uC2A4\uB9C8\uD2B8\uD3F0 \uD30C\uC190"
+    description: "\uC561\uC815\uC774 \uAE68\uC84C\uC2B5\uB2C8\uB2E4. \uC218\uB9AC\uBE44\uAC00
+      \uCCAD\uAD6C\uB429\uB2C8\uB2E4."
+    moneyDelta: -10000
+    goToJail: 0
+    moveSteps: 0
+  - eventTitle: "\uBCF4\uB108\uC2A4 \uC6D4\uAE09"
+    description: "\uC131\uC2E4\uD55C \uB2F9\uC2E0, \uD68C\uC0AC\uC5D0\uC11C \uBCF4\uB108\uC2A4\uB97C
+      \uC9C0\uAE09\uD569\uB2C8\uB2E4."
+    moneyDelta: 10000
+    goToJail: 0
+    moveSteps: 0
+  - eventTitle: "\uC911\uACE0 \uAC70\uB798 \uC131\uACF5"
+    description: "\uC548 \uC4F0\uB294 \uBB3C\uAC74\uC744 \uD314\uC544 \uC3E0\uC3E0\uD55C
+      \uC218\uC775\uC744 \uB0C8\uC2B5\uB2C8\uB2E4."
+    moneyDelta: 10000
+    goToJail: 0
+    moveSteps: 0
+  - eventTitle: "\uC8FC\uCC28 \uC704\uBC18"
+    description: "\uC7A0\uAE50 \uC138\uC6CC\uB454 \uCC28\uAC00 \uACAC\uC778\uB418\uC5C8\uC2B5\uB2C8\uB2E4."
+    moneyDelta: -10000
+    goToJail: 0
+    moveSteps: 0
 --- !u!1 &2091606722 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7671868037491466743, guid: 4fe8894f6b8cedd48a763c24d4f60192, type: 3}
@@ -13021,6 +13116,38 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8548533803710325070, guid: 4fe8894f6b8cedd48a763c24d4f60192, type: 3}
   m_PrefabInstance: {fileID: 1999586816}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2143694475 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 670308021482168244, guid: 9640d0c760e084d4e9cf47f7cfbdeee5, type: 3}
+  m_PrefabInstance: {fileID: 322044440}
+  m_PrefabAsset: {fileID: 0}
+--- !u!54 &2143694480
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2143694475}
+  serializedVersion: 5
+  m_Mass: 10
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!114 &2147137484 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7194525131159040723, guid: fff76d26a1a1ee541bc60381dc81c56c, type: 3}
@@ -13137,6 +13264,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2159179027060522554, guid: 2ca3f369ff3dcce4b9c00f764a3daf3b, type: 3}
+      propertyPath: throwForce
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2159179027060522554, guid: 2ca3f369ff3dcce4b9c00f764a3daf3b, type: 3}
+      propertyPath: torqueForce
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 3015861072272512876, guid: 2ca3f369ff3dcce4b9c00f764a3daf3b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.7
@@ -13180,6 +13315,18 @@ PrefabInstance:
     - target: {fileID: 7551931606656321142, guid: 2ca3f369ff3dcce4b9c00f764a3daf3b, type: 3}
       propertyPath: m_Name
       value: Dice_2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8573607829405702003, guid: 2ca3f369ff3dcce4b9c00f764a3daf3b, type: 3}
+      propertyPath: m_Mass
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8573607829405702003, guid: 2ca3f369ff3dcce4b9c00f764a3daf3b, type: 3}
+      propertyPath: m_LinearDamping
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8573607829405702003, guid: 2ca3f369ff3dcce4b9c00f764a3daf3b, type: 3}
+      propertyPath: m_AngularDamping
+      value: 2.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -13528,6 +13675,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2048754528588024517, guid: d1efe0fcace006f4685fdd163bb85aeb, type: 3}
+      propertyPath: throwForce
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2048754528588024517, guid: d1efe0fcace006f4685fdd163bb85aeb, type: 3}
+      propertyPath: torqueForce
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3674562610670566621, guid: d1efe0fcace006f4685fdd163bb85aeb, type: 3}
+      propertyPath: m_Mass
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3674562610670566621, guid: d1efe0fcace006f4685fdd163bb85aeb, type: 3}
+      propertyPath: m_LinearDamping
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3674562610670566621, guid: d1efe0fcace006f4685fdd163bb85aeb, type: 3}
+      propertyPath: m_AngularDamping
+      value: 2.1
+      objectReference: {fileID: 0}
     - target: {fileID: 7143364612216218301, guid: d1efe0fcace006f4685fdd163bb85aeb, type: 3}
       propertyPath: m_Name
       value: Dice_1

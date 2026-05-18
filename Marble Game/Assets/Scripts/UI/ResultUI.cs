@@ -11,6 +11,7 @@ public class ResultUI : MonoBehaviour
 
     [Header("우승자 정보 UI")]
     [SerializeField] private TMP_Text winnerNameText;
+    [SerializeField] private TMP_Text shadowNameText;
     [SerializeField] private Transform winnerSpawnPoint;
 
     [System.Serializable]
@@ -36,6 +37,11 @@ public class ResultUI : MonoBehaviour
         if (winnerNameText != null)
         {
             winnerNameText.text = winnerName;
+        }
+
+        if (shadowNameText != null) 
+        {
+            shadowNameText.text = winnerName;
         }
 
         ApplyBackgroundColor(prefabName);
@@ -94,12 +100,20 @@ public class ResultUI : MonoBehaviour
         }
     }
 
-        public void OnClickRestart()
+    public void OnClickRestart()
+    {
+        if (GameManager.Instance != null)
         {
-            SceneLoader.HumanPlayerCount = PlayerPrefs.GetInt("LastHumanCount", 1);
-            SceneLoader.AIPlayerCount = PlayerPrefs.GetInt("LastAICount", 1);
-            SceneManager.LoadScene("GameScene");
+            Destroy(GameManager.Instance.gameObject);
         }
+
+        SceneLoader.HumanPlayerCount = PlayerPrefs.GetInt("LastHumanCount", 1);
+        SceneLoader.AIPlayerCount = PlayerPrefs.GetInt("LastAICount", 1);
+        
+        // 캐릭터 선택 정보도 다시 로드 (필요 시)
+
+        SceneManager.LoadScene("GameScene");
+    }
 
     public void OnClickMainTitle()
     {

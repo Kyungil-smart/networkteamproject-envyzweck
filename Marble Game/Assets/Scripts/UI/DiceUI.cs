@@ -4,6 +4,8 @@ using TMPro;
 
 public class DiceUI : MonoBehaviour
 {
+    private Rigidbody rb;
+    
     [Header("UI 참조")]
     public TMP_Text totalText;  
     public TMP_Text turnText;  
@@ -15,6 +17,10 @@ public class DiceUI : MonoBehaviour
 
     bool _isRolling = false;
 
+    void Awake()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
     void Start()
     {
         if (diceRoller == null)
@@ -59,14 +65,18 @@ public class DiceUI : MonoBehaviour
 
     void OnRollClicked()
     {
+        SoundManager.Instance.PlayDiceRoll();
+
         if (_isRolling) return;
         _isRolling = true;
+        
         
         SetRollButtonActive(false); // 굴리기 시작하면 버튼 끔
         totalText.text = "-";
         resultText.text = "굴리는 중...";
         
         diceRoller?.Roll();
+        
     }
 
     void OnRollComplete(int d1, int d2)
@@ -95,5 +105,26 @@ public class DiceUI : MonoBehaviour
         ColorBlock c = rollButton.colors;
         c.normalColor = on ? new Color(0.2f, 0.7f, 0.2f) : new Color(0.4f, 0.4f, 0.4f);
         rollButton.colors = c;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        // 1. 부딪힌 상대방의 태그가 "Floor" 혹은 "Board"인지 확인 (원하는 대로 설정)
+        if (collision.gameObject.CompareTag("Floor") || collision.gameObject.CompareTag("Board"))
+        {
+            // 2. 부딪히는 속도(강도)를 계산
+            // 속도가 빠를수록 세게 부딪힌 것이므로 소리가 나야 함
+            float impactForce = collision.relativeVelocity.magnitude;
+
+            // 3. 너무 미세하게 구르는 소리는 무시 (임계값 0.5f 정도)
+            if (impactForce > 0.5f)
+            {
+                // 강도에 따라 볼륨을 조절하면 더 리얼합니다 (0.1 ~ 1.0 사이)
+                float volume = Mathf.Clamp(impactForce / 10f, 0.1f, 1.0f);
+                
+                // 사운드 매니저 호출!
+                SoundManager.Instance.PlaySFX(SoundManager.Instance.sfxDiceRoll, volume, Random.Range(0.95f, 1.05f));
+            }
+        }
     }
 }

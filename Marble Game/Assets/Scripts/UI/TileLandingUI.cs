@@ -18,19 +18,21 @@ public class TileLandingUI : MonoBehaviour
     public GameObject eventPanel;
 
     [Header("Buy Panel")]
-    public TMP_Text buyTileName; public TMP_Text buyPrice; public TMP_Text buyBaseRent; // Text -> TMP_Text
+    public TMP_Text buyTileName; public TMP_Text buyPrice; public TMP_Text buyBaseRent; 
     public Button buyConfirmBtn; public Button buySkipBtn;
 
     [Header("Rent Panel")]
-    public TMP_Text rentTileName; public TMP_Text rentOwnerName; public TMP_Text rentAmount; // Text -> TMP_Text
+    public TMP_Text rentTileName; public TMP_Text rentOwnerName; public TMP_Text rentAmount; 
     public Button rentConfirmBtn;
 
     [Header("Build Panel")]
-    public TMP_Text buildTileName; public TMP_Text buildCurrentBuildings; public TMP_Text buildCost; public TMP_Text buildNewRent; // Text -> TMP_Text
+    public TMP_Text buildTileName; public TMP_Text buildCurrentBuildings; public TMP_Text buildCost; public TMP_Text buildNewRent; 
     public Button buildConfirmBtn; public Button buildSkipBtn;
 
     [Header("Event Panel")]
-    public TMP_Text eventTitle; public TMP_Text eventDescription; public TMP_Text eventEffect; // Text -> TMP_Text
+    public TMP_Text eventTitle; 
+    public TMP_Text eventDescription; 
+    public TMP_Text eventEffect; 
     public Button eventConfirmBtn;
 
     int _pendingPlayerIndex = -1;
@@ -130,21 +132,37 @@ public class TileLandingUI : MonoBehaviour
         SetButtonsInteractable(true);
         _pendingPlayerIndex = playerIndex;
         _pendingEvent = card;
-        eventDescription.text = card.description;
+
+        if (eventTitle != null) eventTitle.text = card.eventTitle;
+
+        if (eventDescription != null) 
+        {
+            eventDescription.text = card.description;
+        }
+
+        if (eventEffect != null) 
+        {
+            if (card.moneyDelta != 0) eventEffect.text = (card.moneyDelta > 0 ? "+" : "") + card.moneyDelta.ToString("N0");
+            else if (card.goToJail) eventEffect.text = "감옥으로 이동";
+            else if (card.moveSteps != 0) eventEffect.text = card.moveSteps + "칸 이동";
+            else eventEffect.text = "";
+        }
         eventPanel.SetActive(true);
 
         if (GameManager.Instance.Players[playerIndex].isAI)
             StartCoroutine(AIClickRoutine(OnEventConfirm));
     }
 
-    void OnBuyConfirm() {
+    void OnBuyConfirm() 
+    {
         buyPanel.SetActive(false);
         BoardManager.Instance.BuyProperty(_pendingPlayerIndex, _pendingTile);
         GameManager.Instance.FinishTurn();
     }
     void OnBuySkip() { buyPanel.SetActive(false); GameManager.Instance.FinishTurn(); }
 
-    void OnRentConfirm() {
+    void OnRentConfirm() 
+    {
         rentPanel.SetActive(false);
         int rent = _pendingTile.GetCurrentRent();
         bool bankrupt = GameManager.Instance.PayMoney(_pendingPlayerIndex, rent);
@@ -154,22 +172,30 @@ public class TileLandingUI : MonoBehaviour
         }
     }
 
-    void OnBuildConfirm() {
+    void OnBuildConfirm() 
+    {
         buildPanel.SetActive(false);
         BoardManager.Instance.BuildOnTile(_pendingPlayerIndex, _pendingTile.tileIndex);
         GameManager.Instance.FinishTurn();
     }
     void OnBuildSkip() { buildPanel.SetActive(false); GameManager.Instance.FinishTurn(); }
 
-    void OnEventConfirm() {
+    void OnEventConfirm() 
+    { 
         eventPanel.SetActive(false);
         var gm = GameManager.Instance;
         var card = _pendingEvent;
+    
         if (card.goToJail) { gm.SendToJail(_pendingPlayerIndex); return; }
+
+        bool isBankrupt = false;
         if (card.moneyDelta > 0) gm.ReceiveMoney(_pendingPlayerIndex, card.moneyDelta);
-        else if (card.moneyDelta < 0) gm.PayMoney(_pendingPlayerIndex, -card.moneyDelta);
-        
+        else if (card.moneyDelta < 0) isBankrupt = gm.PayMoney(_pendingPlayerIndex, -card.moneyDelta);
+    
+        // 파산하지 않았을 때만 다음 단계 진행
+        if (!isBankrupt) {
         if (card.moveSteps != 0) gm.RequestMovePlayer(_pendingPlayerIndex, card.moveSteps);
         else gm.FinishTurn();
     }
+}
 }

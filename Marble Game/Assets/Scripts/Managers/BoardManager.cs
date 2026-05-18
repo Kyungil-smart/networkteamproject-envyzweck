@@ -21,6 +21,7 @@ public class BoardManager : MonoBehaviour
     [System.Serializable]
     public class EventCard
     {
+        public string eventTitle;
         public string description;
         public int    moneyDelta;
         public bool   goToJail;
@@ -31,7 +32,7 @@ public class BoardManager : MonoBehaviour
     void Start()
     {
         InitTiles();
-        InitDefaultEventCards();
+        // InitDefaultEventCards();
         // 씬 내의 모든 타일 디스플레이 찾기
         tileDisplays = Object.FindObjectsByType<TileDisplay>(FindObjectsSortMode.None);
     }
@@ -46,22 +47,6 @@ public class BoardManager : MonoBehaviour
             Tiles[i] = boardConfig.tiles[i];
             if (Tiles[i] != null) Tiles[i].ResetRuntimeState();
         }
-    }
-
-    void InitDefaultEventCards()
-    {
-        if (eventCards.Count > 0) return;
-
-        eventCards.Add(new EventCard { description = "복권 당첨! +500,000",           moneyDelta = 500000 });
-        eventCards.Add(new EventCard { description = "세금 환급! +200,000",           moneyDelta = 200000 });
-        eventCards.Add(new EventCard { description = "건물 수리비 발생! -300,000",    moneyDelta = -300000 });
-        eventCards.Add(new EventCard { description = "해외 여행 비용 지출! -400,000", moneyDelta = -400000 });
-        eventCards.Add(new EventCard { description = "특별 보너스 지급! +1,000,000",  moneyDelta = 1000000 });
-        eventCards.Add(new EventCard { description = "과속 적발! 무인도로 이동",       goToJail = true });
-        eventCards.Add(new EventCard { description = "순풍을 타고! 3칸 앞으로",       moveSteps = 3 });
-        eventCards.Add(new EventCard { description = "강한 역풍 발생! 2칸 뒤로",       moveSteps = -2 });
-        eventCards.Add(new EventCard { description = "주식 투자 성공! +800,000",       moneyDelta = 800000 });
-        eventCards.Add(new EventCard { description = "갑작스러운 병원비! -500,000",    moneyDelta = -500000 });
     }
 
     public void HandleTileLanding(int playerIndex, int tileIndex)

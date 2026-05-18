@@ -2096,6 +2096,72 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1245553071}
   m_CullTransparentMesh: 1
+--- !u!1 &1260952630
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1260952631}
+  - component: {fileID: 1260952632}
+  m_Layer: 0
+  m_Name: SoundManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1260952631
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1260952630}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1007.0124, y: 0.00009, z: 232.5017}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1260952632
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1260952630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e631f2bd1213f645b800062f9827db9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SoundManager
+  bgmMain: {fileID: 8300000, guid: 718b9f4dea987504b97e3e2cf75332e2, type: 3}
+  bgmTitle: {fileID: 0}
+  bgmResult: {fileID: 0}
+  bgmVolume: 0.05
+  bgmFadeDuration: 2
+  sfxDiceRoll: {fileID: 8300000, guid: ea5e0f8ba18b3594ea8144510e00d20a, type: 3}
+  sfxDiceLand: {fileID: 8300000, guid: e3923ebad03ac194187d3bfa9922e7c3, type: 3}
+  sfxPawnMove: {fileID: 8300000, guid: a34e38865fdf3314badaa415030da1da, type: 3}
+  sfxPawnLand: {fileID: 0}
+  sfxMoneyGet: {fileID: 0}
+  sfxMoneyPay: {fileID: 0}
+  sfxBankrupt: {fileID: 0}
+  sfxBuyProperty: {fileID: 0}
+  sfxBuildHouse: {fileID: 0}
+  sfxEventCard: {fileID: 0}
+  sfxJail: {fileID: 0}
+  sfxButtonClick: {fileID: 0}
+  sfxGameStart: {fileID: 0}
+  sfxGameOver: {fileID: 0}
+  sfxTurnChange: {fileID: 0}
+  sfxVolume: 0.8
+  sfxPoolSize: 8
 --- !u!1 &1264427220
 GameObject:
   m_ObjectHideFlags: 0
@@ -3860,3 +3926,4 @@ SceneRoots:
   - {fileID: 887536622}
   - {fileID: 349464096}
   - {fileID: 2129788750}
+  - {fileID: 1260952631}

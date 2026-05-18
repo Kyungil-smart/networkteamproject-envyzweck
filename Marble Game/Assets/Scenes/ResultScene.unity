@@ -1545,6 +1545,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ResultUI
   resultCamera: {fileID: 184545101}
   winnerNameText: {fileID: 1738205647}
+  shadowNameText: {fileID: 935077798}
   winnerSpawnPoint: {fileID: 2078902219}
   characterColors:
   - prefabName: Character_0
